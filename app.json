@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "Plaster-calculator-expo-JS",
+    "slug": "Plaster-calculator-expo-JS",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/CalcAppIconPink.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/ExpoLogoBlue.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "assets/**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.dhurrell007.PlastercalculatorexpoJS",
+      // "buildNumber": "6"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-asset"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "f2ca398f-975d-4fcc-8bfd-da4acecdda31"
+      }
+    },
+    "owner": "dhurrell007"
+  }
+}
