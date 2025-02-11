@@ -2,7 +2,7 @@
   "expo": {
     "name": "Plaster-calculator-expo-JS",
     "slug": "Plaster-calculator-expo-JS",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/CalcAppIconPink.png",
     "userInterfaceStyle": "light",
@@ -20,6 +20,7 @@
       // "buildNumber": "6"
     },
     "android": {
+      "package": "com.dhurrell007.PlasterCalculatorExpoJS",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"

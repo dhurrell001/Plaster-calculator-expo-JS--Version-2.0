@@ -8,7 +8,7 @@ import InputDisplayArea from "./inputDisplayArea";
 import OutputDisplayArea from "./outputDisplayArea";
 import HorizontalRule from "./horizontalRule";
 import { StatusBar } from "expo-status-bar";
-
+import DataSheetButtons from "./dataSheetButtons";
 const AppMain = () => {
   const {
     lengthInput,
@@ -62,6 +62,7 @@ const AppMain = () => {
           calculateSum={handleCalculation}
         />
         <Text style={{ color: "slategrey", fontSize: 27 }}>RESULTS</Text>
+
         <OutputDisplayArea
           label={"Total area (Square metres):"}
           sum={outputResults.totalArea}
@@ -70,6 +71,7 @@ const AppMain = () => {
           contingencyNeeded={outputResults.contingencyNeeded}
           totalPlasterNeeded={outputResults.totalPlasterNeeded}
         />
+        {selectedPlaster && <DataSheetButtons />}
         <StatusBar style="auto" />
       </View>
     </ScrollView>
