@@ -71,7 +71,10 @@ const AppMain = () => {
           contingencyNeeded={outputResults.contingencyNeeded}
           totalPlasterNeeded={outputResults.totalPlasterNeeded}
         />
-        {selectedPlaster && <DataSheetButtons />}
+        {selectedPlaster && (
+          <DataSheetButtons selectedPlaster={selectedPlaster} />
+        )}
+
         <StatusBar style="auto" />
       </View>
     </ScrollView>
