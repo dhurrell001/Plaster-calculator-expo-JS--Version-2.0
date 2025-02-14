@@ -3,6 +3,7 @@
     "name": "Plaster-calculator-expo-JS",
     "slug": "Plaster-calculator-expo-JS",
     "version": "2.0.0",
+    "jsEngine": "jsc",
     "orientation": "portrait",
     "icon": "./assets/CalcAppIconPink.png",
     "userInterfaceStyle": "light",
