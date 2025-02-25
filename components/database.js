@@ -7,8 +7,10 @@ const dbPromise = SQLite.openDatabaseAsync("PlasterDatabase.db");
 export const setupDatabase = async () => {
   try {
     // Open the database
+
     const db = await dbPromise;
     console.log("Database opened successfully: PlasterDatabase.db");
+    // await db.execAsync("DROP TABLE IF EXISTS plasters;");
 
     // Create table if it doesn't exist
     console.log("Creating 'plasters' table if not exists...");
@@ -18,7 +20,8 @@ export const setupDatabase = async () => {
         plasterName TEXT,
         coveragePerMMperSQM FLOAT,
         bagSize INTEGER,
-        plasterType TEXT
+        plasterType TEXT,
+        tdsFileName TEXT
       );`
     );
     console.log("'plasters' table creation or verification complete.");
@@ -31,28 +34,29 @@ export const setupDatabase = async () => {
     if (result.count === 0) {
       console.log("No records found, inserting initial plaster data...");
       await db.execAsync(
-        `INSERT INTO plasters (plasterName, coveragePerMMperSQM, bagSize, plasterType)
+        `INSERT INTO plasters (plasterName, coveragePerMMperSQM, bagSize, plasterType, tdsFileName)
         VALUES 
-        ('British Gypsum Multi-Finish', 1.25, 25, 'INTERNAL'),
-        ('British Gypsum Hardwall', 0.76, 25, 'INTERNAL'),
-        ('British Gypsum Bonding', 1.21, 25, 'INTERNAL'),
-        ('British Gypsum Pure Finish',1.25,25,'INTERNAL'),
-        ('British Gypsum One Coat',0.85,25,'INTERNAL'),
-        ('Thistle DriCoat',0.70,25,'INTERNAL'),
-        ('ThistlePro Fastset',1.25,25,'INTERNAL'),
-        ('K-Rend Silicone K1',1.6,25,'EXTERNAL'),
-        ('k-Rend HP12 Base',1.8,25,'EXTERNAL'),
-        ('K-Rend Silicone TC10',1.8,25,'EXTERNAL'),
-        ('K-Rend Silicone TC15',2.5,25,'EXTERNAL'),
-        ('K-Rend Silicone TC30',5,25,'EXTERNAL'),
-        ('Weberpral M',1.66,25,'EXTERNAL'),
-        ('Weberpral MF',2.07,25,'EXTERNAL'),
-        ('Webrend Onecoat Dash',1.56,25,'EXTERNAL'),
-        ('Webrend OCR',1.79,25,'EXTERNAL'),
-        ('Webrend LAC',6.5,20,'EXTERNAL'),
-        ('Webersil TF',2.72,15,'EXTERNAL'),
-        ('Weber Cullamix Tyrolean',1,25,'EXTERNAL'),
-        ('Ecorend MR1',1.5,25,'EXTERNAL')`
+        ('British Gypsum Multi-Finish', 1.25, 25, 'INTERNAL','MultiFinishTDS.pdf'),
+        ('British Gypsum Board Finish', 1.25, 25, 'INTERNAL','BoardFinishTDS.pdf'),
+        ('British Gypsum Hardwall', 0.76, 25, 'INTERNAL',NULL),
+        ('British Gypsum Bonding', 1.21, 25, 'INTERNAL',NULL),
+        ('British Gypsum Pure Finish',1.25,25,'INTERNAL',NULL),
+        ('British Gypsum One Coat',0.85,25,'INTERNAL',NULL),
+        ('Thistle DriCoat',0.70,25,'INTERNAL',NULL),
+        ('ThistlePro Fastset',1.25,25,'INTERNAL',NULL),
+        ('K-Rend Silicone K1',1.6,25,'EXTERNAL',NULL),
+        ('k-Rend HP12 Base',1.8,25,'EXTERNAL',NULL),
+        ('K-Rend Silicone TC10',1.8,25,'EXTERNAL',NULL),
+        ('K-Rend Silicone TC15',2.5,25,'EXTERNAL',NULL),
+        ('K-Rend Silicone TC30',5,25,'EXTERNAL',NULL),
+        ('Weberpral M',1.66,25,'EXTERNAL',NULL),
+        ('Weberpral MF',2.07,25,'EXTERNAL',NULL),
+        ('Webrend Onecoat Dash',1.56,25,'EXTERNAL',NULL),
+        ('Webrend OCR',1.79,25,'EXTERNAL',NULL),
+        ('Webrend LAC',6.5,20,'EXTERNAL',NULL),
+        ('Webersil TF',2.72,15,'EXTERNAL',NULL),
+        ('Weber Cullamix Tyrolean',1,25,'EXTERNAL',NULL),
+        ('Ecorend MR1',1.5,25,'EXTERNAL',NULL)`
       );
       console.log("Initial plaster data inserted.");
     } else {
