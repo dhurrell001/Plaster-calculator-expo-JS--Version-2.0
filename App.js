@@ -7,7 +7,11 @@ import InstructionPage from "./components/instructionPage";
 import { Ionicons } from "@expo/vector-icons";
 import { AppProvider } from "./components/appMainContext";
 
+//Set up the bottom tab navigator
 const Tab = createBottomTabNavigator();
+// Navigation container for the app, with a bottom tab navigator
+// to switch between the main calculator page, the instructions page,
+// and the about page
 
 export default function App() {
   return (

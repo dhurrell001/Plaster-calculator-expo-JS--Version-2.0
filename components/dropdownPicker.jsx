@@ -5,7 +5,8 @@ import { getPlasters } from "./database"; // Import the function that fetches pl
 
 function PlasterDropdown({ selectedPlaster, setSelectedPlaster, plasters }) {
   const [loading, setLoading] = useState(true);
-  // hook to check if plasters exist and is populated, sets the loadinf state to false
+  // hook to check if plasters exist and is populated, sets the loading state to false
+  // to remove the loading message
   useEffect(() => {
     if (plasters && plasters.length > 0) {
       setLoading(false);
@@ -20,7 +21,7 @@ function PlasterDropdown({ selectedPlaster, setSelectedPlaster, plasters }) {
     );
     setSelectedPlaster(selected); // Set the full plaster object
   };
-
+  // if loading state is true, display loading message
   if (loading) {
     return <Text>Loading plasters...</Text>;
   }
