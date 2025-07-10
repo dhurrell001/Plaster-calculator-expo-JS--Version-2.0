@@ -38,8 +38,8 @@ export const setupDatabase = async () => {
         VALUES 
         ('British Gypsum Multi-Finish', 1.25, 25, 'INTERNAL','MultiFinishTDS.pdf'),
         ('British Gypsum Board Finish', 1.25, 25, 'INTERNAL','BoardFinishTDS.pdf'),
-        ('British Gypsum Hardwall', 0.76, 25, 'INTERNAL',NULL),
-        ('British Gypsum Bonding', 1.21, 25, 'INTERNAL',NULL),
+        ('British Gypsum Hardwall', 0.76, 25, 'INTERNAL','British-Gypsum-PDS-Thistle-HardWall.pdf'),
+        ('British Gypsum Bonding', 1.21, 25, 'INTERNAL','British-Gypsum-PDS-Thistle-BondingCoat.pdf'),
         ('British Gypsum Pure Finish',1.25,25,'INTERNAL',NULL),
         ('British Gypsum One Coat',0.85,25,'INTERNAL',NULL),
         ('Thistle DriCoat',0.70,25,'INTERNAL',NULL),
@@ -169,5 +169,23 @@ export const clearDatabase = async () => {
     console.log("All records cleared from the 'plasters' table.");
   } catch (error) {
     console.error("Error clearing database: ", error);
+  }
+};
+// This function is used to search for plasters by a query string.
+// It uses a wildcard search to find plasters whose names contain the query string.
+export const searchPlastersByQuery = async (query) => {
+  try {
+    const db = await dbPromise;
+
+    // Use wildcards to match any part of the plasterName
+    const result = await db.getAllAsync(
+      `SELECT * FROM plasters WHERE plasterName LIKE ? ;`,
+      [`%${query}%`]
+    );
+
+    return result;
+  } catch (error) {
+    console.error("Error searching plasters: ", error);
+    throw error;
   }
 };

@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "Plaster-calculator-expo-JS",
-    "slug": "Plaster-calculator-expo-JS",
+    "name": "Plaster-calculator-expo-JS-v2",
+    "slug": "Plaster-calculator-expo-JS-v2",
+    "scheme": "plastercalculatorv2",
     "version": "2.0.0",
     "jsEngine": "jsc",
     "orientation": "portrait",
@@ -17,11 +18,13 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.dhurrell007.PlastercalculatorexpoJS",
-      // "buildNumber": "6"
+      "bundleIdentifier": "com.dhurrell007.PlastercalculatorexpoJS.v2",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
-      "package": "com.dhurrell007.PlasterCalculatorExpoJS",
+      "package": "com.dhurrell007.PlasterCalculatorExpoJS.v2",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -35,7 +38,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "f2ca398f-975d-4fcc-8bfd-da4acecdda31"
+        "projectId": "a7f56fd6-669d-4788-acc1-763572fd6949"
       }
     },
     "owner": "dhurrell007"

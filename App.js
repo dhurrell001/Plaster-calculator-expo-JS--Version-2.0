@@ -6,6 +6,9 @@ import AboutPage from "./components/aboutPage";
 import InstructionPage from "./components/instructionPage";
 import { Ionicons } from "@expo/vector-icons";
 import { AppProvider } from "./components/appMainContext";
+import PlasterSearchModal from "./components/plasterSearchModal";
+import { useState } from "react";
+import { TouchableOpacity, View } from "react-native";
 
 //Set up the bottom tab navigator
 const Tab = createBottomTabNavigator();
@@ -14,6 +17,8 @@ const Tab = createBottomTabNavigator();
 // and the about page
 
 export default function App() {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <AppProvider>
       <NavigationContainer>
@@ -28,6 +33,8 @@ export default function App() {
                 iconName = "information-circle-outline";
               } else if (route.name === "Instructions") {
                 iconName = "document-text-outline";
+              } else if (route.name === "Search") {
+                iconName = "search-outline";
               }
               return <Ionicons name={iconName} size={size} color={color} />;
             },
@@ -50,8 +57,30 @@ export default function App() {
           />
           <Tab.Screen name="Instructions" component={InstructionPage} />
           <Tab.Screen name="About" component={AboutPage} />
+          <Tab.Screen
+            name="Search"
+            component={DummyScreen} // placeholder
+            listeners={{
+              tabPress: (e) => {
+                e.preventDefault(); // prevent navigation
+                setModalVisible(true); // open modal instead
+              },
+            }}
+            options={{
+              title: "Search",
+              tabBarButton: (props) => <TouchableOpacity {...props} />,
+            }}
+          />
         </Tab.Navigator>
+
+        {/* Modal for plaster search */}
+        <PlasterSearchModal
+          visible={modalVisible}
+          onClose={() => setModalVisible(false)}
+        />
       </NavigationContainer>
     </AppProvider>
   );
 }
+// Dummy screen component (won't actually be shown)
+const DummyScreen = () => <View />;
