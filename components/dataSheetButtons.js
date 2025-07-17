@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import React, { use, useState, useEffect } from "react";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import SubmitButton from "./submitButton";
 import { storage } from "../firebaseConfig";
 import { ref, getDownloadURL } from "firebase/storage";
 import { Linking } from "react-native";
+
+import FavouritesButton from "./favouritesButton";
 
 /*Finction to open PDF in browser, retrieves the download URL from Firebase Storage
 and opens the URL in the browser fileName: the name of the file in 
@@ -20,15 +22,17 @@ const openPdfInBrowser = async (fileName) => {
     console.error("Error fetching PDF:", error);
   }
 };
-
 /* Component to display buttons for viewing TDS and SDS, uses selectedPlaster prop
 to determine which plaster's TDS and SDS to display */
 
 export default function DataSheetButtons({ selectedPlaster }) {
-  console.log(selectedPlaster);
-  console.log(selectedPlaster.tdsFileName);
   return (
     <View style={styles.container}>
+      {console.log(
+        "Selected plaster in DataSheetButtons:",
+        selectedPlaster.plasterName
+      )}
+
       <SubmitButton
         title="View TDS"
         onPress={() => openPdfInBrowser(selectedPlaster?.tdsFileName)}
@@ -37,6 +41,7 @@ export default function DataSheetButtons({ selectedPlaster }) {
         title="View SDS"
         onPress={() => openPdfInBrowser("anotherFile.pdf")}
       />
+      <FavouritesButton selectedPlaster={selectedPlaster} />
     </View>
   );
 }

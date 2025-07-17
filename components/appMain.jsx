@@ -12,6 +12,7 @@ import { StatusBar } from "expo-status-bar";
 import DataSheetButtons from "./dataSheetButtons";
 import { Modal, Button } from "react-native";
 import PlasterSearchModal from "./plasterSearchModal";
+import FavouritesModal from "./favoritesModal";
 
 /* Main component for the app, contains all the other components
  */
@@ -36,14 +37,9 @@ const AppMain = () => {
     contingencyInput,
     setContingencyInput,
   } = useContext(AppContext);
+  const [favoritesModalVisible, setFavouritesModal] = useState(true);
   return (
     <>
-      {/* <Button title="?" onPress={() => setModalVisible(true)} />
-
-      <PlasterSearchModal
-        visible={modalVisible}
-        onClose={() => setModalVisible(false)}
-      /> */}
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.container}>
           <Text style={styles.title}>PLASTER CALCULATOR</Text>
@@ -101,7 +97,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     backgroundColor: "linen",
     alignItems: "center",
-    marginTop: 30,
+    marginTop: 20,
     width: "100%",
   },
   title: {
@@ -114,7 +110,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: "center",
     alignItems: "center",
-    paddingVertical: 30,
+    paddingVertical: 20,
     backgroundColor: "linen",
     width: "100%",
   },

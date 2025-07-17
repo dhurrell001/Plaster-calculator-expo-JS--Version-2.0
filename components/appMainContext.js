@@ -24,7 +24,7 @@ export const AppProvider = ({ children }) => {
   const [selectedPlaster, setSelectedPlaster] = useState(null); // Chosen plaster from dropdown
   const [plasterData, setPlasterData] = useState([]); // Array of available plaster data
   const [errorMessage, setErrorMessage] = useState(""); // For displaying validation or error messages
-
+  const [favouriteList, setFavouriteList] = useState([]);
   // State variables for toggle settings for filtering plaster types
   const [InternalisEnabled, setInternalIsEnabled] = useState(true); // Toggle for internal plasters
   const [ExternalisEnabled, setExternalIsEnabled] = useState(true); // Toggle for external plasters
@@ -139,6 +139,7 @@ export const AppProvider = ({ children }) => {
         selectedPlaster,
         setSelectedPlaster,
         plasterData,
+        setPlasterData,
         errorMessage,
         InternalisEnabled,
         setInternalIsEnabled,
@@ -146,6 +147,8 @@ export const AppProvider = ({ children }) => {
         setExternalIsEnabled,
         handleCalculation,
         outputResults,
+        favouriteList,
+        setFavouriteList, // Expose setFavouriteList to allow adding/removing favourites
       }}
     >
       {children}
