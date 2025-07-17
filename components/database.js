@@ -11,6 +11,7 @@ export const setupDatabase = async () => {
     const db = await dbPromise;
     console.log("Database opened successfully: PlasterDatabase.db");
     // await db.execAsync("DROP TABLE IF EXISTS plasters;");
+    // await db.execAsync("DROP TABLE IF EXISTS plasters;");
 
     // Create table if it doesn't exist
     console.log("Creating 'plasters' table if not exists...");
@@ -21,7 +22,8 @@ export const setupDatabase = async () => {
         coveragePerMMperSQM FLOAT,
         bagSize INTEGER,
         plasterType TEXT,
-        tdsFileName TEXT
+        tdsFileName TEXT,
+        isFavourite INTEGER DEFAULT 0
       );`
     );
     console.log("'plasters' table creation or verification complete.");
@@ -34,29 +36,29 @@ export const setupDatabase = async () => {
     if (result.count === 0) {
       console.log("No records found, inserting initial plaster data...");
       await db.execAsync(
-        `INSERT INTO plasters (plasterName, coveragePerMMperSQM, bagSize, plasterType, tdsFileName)
+        `INSERT INTO plasters (plasterName, coveragePerMMperSQM, bagSize, plasterType, tdsFileName, isFavourite)
         VALUES 
-        ('British Gypsum Multi-Finish', 1.25, 25, 'INTERNAL','MultiFinishTDS.pdf'),
-        ('British Gypsum Board Finish', 1.25, 25, 'INTERNAL','BoardFinishTDS.pdf'),
-        ('British Gypsum Hardwall', 0.76, 25, 'INTERNAL','British-Gypsum-PDS-Thistle-HardWall.pdf'),
-        ('British Gypsum Bonding', 1.21, 25, 'INTERNAL','British-Gypsum-PDS-Thistle-BondingCoat.pdf'),
-        ('British Gypsum Pure Finish',1.25,25,'INTERNAL',NULL),
-        ('British Gypsum One Coat',0.85,25,'INTERNAL',NULL),
-        ('Thistle DriCoat',0.70,25,'INTERNAL',NULL),
-        ('ThistlePro Fastset',1.25,25,'INTERNAL',NULL),
-        ('K-Rend Silicone K1',1.6,25,'EXTERNAL',NULL),
-        ('k-Rend HP12 Base',1.8,25,'EXTERNAL',NULL),
-        ('K-Rend Silicone TC10',1.8,25,'EXTERNAL',NULL),
-        ('K-Rend Silicone TC15',2.5,25,'EXTERNAL',NULL),
-        ('K-Rend Silicone TC30',5,25,'EXTERNAL',NULL),
-        ('Weberpral M',1.66,25,'EXTERNAL',NULL),
-        ('Weberpral MF',2.07,25,'EXTERNAL',NULL),
-        ('Webrend Onecoat Dash',1.56,25,'EXTERNAL',NULL),
-        ('Webrend OCR',1.79,25,'EXTERNAL',NULL),
-        ('Webrend LAC',6.5,20,'EXTERNAL',NULL),
-        ('Webersil TF',2.72,15,'EXTERNAL',NULL),
-        ('Weber Cullamix Tyrolean',1,25,'EXTERNAL',NULL),
-        ('Ecorend MR1',1.5,25,'EXTERNAL',NULL)`
+         ('British Gypsum Multi-Finish', 1.25, 25, 'INTERNAL','MultiFinishTDS.pdf', 0),
+        ('British Gypsum Board Finish', 1.25, 25, 'INTERNAL','BoardFinishTDS.pdf', 0),
+        ('British Gypsum Hardwall', 0.76, 25, 'INTERNAL','British-Gypsum-PDS-Thistle-HardWall.pdf', 0),
+        ('British Gypsum Bonding', 1.21, 25, 'INTERNAL','British-Gypsum-PDS-Thistle-BondingCoat.pdf', 0),
+        ('British Gypsum Pure Finish', 1.25, 25, 'INTERNAL', NULL, 0),
+        ('British Gypsum One Coat', 0.85, 25, 'INTERNAL', NULL, 0),
+        ('Thistle DriCoat', 0.70, 25, 'INTERNAL', NULL, 0),
+        ('ThistlePro Fastset', 1.25, 25, 'INTERNAL', NULL, 0),
+        ('K-Rend Silicone K1', 1.6, 25, 'EXTERNAL', NULL, 0),
+        ('k-Rend HP12 Base', 1.8, 25, 'EXTERNAL', NULL, 0),
+        ('K-Rend Silicone TC10', 1.8, 25, 'EXTERNAL', NULL, 0),
+        ('K-Rend Silicone TC15', 2.5, 25, 'EXTERNAL', NULL, 0),
+        ('K-Rend Silicone TC30', 5, 25, 'EXTERNAL', NULL, 0),
+        ('Weberpral M', 1.66, 25, 'EXTERNAL', NULL, 0),
+        ('Weberpral MF', 2.07, 25, 'EXTERNAL', NULL, 0),
+        ('Webrend Onecoat Dash', 1.56, 25, 'EXTERNAL', NULL, 0),
+        ('Webrend OCR', 1.79, 25, 'EXTERNAL', NULL, 0),
+        ('Webrend LAC', 6.5, 20, 'EXTERNAL', NULL, 0),
+        ('Webersil TF', 2.72, 15, 'EXTERNAL', NULL, 0),
+        ('Weber Cullamix Tyrolean', 1, 25, 'EXTERNAL', NULL, 0),
+        ('Ecorend MR1', 1.5, 25, 'EXTERNAL', NULL, 0)`
       );
       console.log("Initial plaster data inserted.");
     } else {
@@ -187,5 +189,27 @@ export const searchPlastersByQuery = async (query) => {
   } catch (error) {
     console.error("Error searching plasters: ", error);
     throw error;
+  }
+};
+export const addPlasterToFavourites = async (plasterId) => {
+  try {
+    const db = await dbPromise;
+    await db.execAsync("UPDATE plasters SET isFavourite = 1 WHERE id = ?;", [
+      plasterId,
+    ]);
+    console.log(`Plaster with ID ${plasterId} added to favourites.`);
+  } catch (error) {
+    console.error("Error adding plaster to favourites: ", error);
+  }
+};
+export const removePlasterFromFavourites = async (plasterId) => {
+  try {
+    const db = await dbPromise;
+    await db.execAsync("UPDATE plasters SET isFavourite = 0 WHERE id = ?;", [
+      plasterId,
+    ]);
+    console.log(`Plaster with ID ${plasterId} removed from favourites.`);
+  } catch (error) {
+    console.error("Error removing plaster from favourites: ", error);
   }
 };
