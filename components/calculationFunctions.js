@@ -2,17 +2,20 @@ import React from "react"; // Import React for functional component creation
 
 // Calculate the total area to be plastered based on length and width in square meters
 function calculateArea(length, width) {
-  return length * width;
+  let area = length * width;
+  return Number(area.toFixed(2));
 }
 
 // Calculate the required plaster in kilograms without contingency added, based on area, thickness, and plaster's coverage rate
 function calculatePlasterNeeded(totalArea, thickness, coverageKGperMMperMetre) {
-  return totalArea * (coverageKGperMMperMetre * thickness);
+  let plasterNeeded = totalArea * (coverageKGperMMperMetre * thickness);
+  return Number(plasterNeeded.toFixed(2));
 }
 
 // Calculate the contingency amount needed in kilograms based on the plaster needed and a percentage
 function calculateContingencyNeeded(plasterNeeded, contingencyPercentage) {
-  return plasterNeeded * (contingencyPercentage / 100);
+  let contingency = plasterNeeded * (contingencyPercentage / 100);
+  return Number(contingency.toFixed(2));
 }
 
 // Calculate the number of plaster bags needed, rounded up to the nearest whole bag
