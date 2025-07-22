@@ -1,15 +1,15 @@
 // appMain.js
 import React, { useContext, useState } from "react";
-import { AppContext } from "./appMainContext";
+import { AppContext } from "../components/appMainContext";
 import { View, Text, ScrollView, StyleSheet } from "react-native";
-import PlasterTypeSwitch from "./plasterTypeSwitches";
-import PlasterDropdown from "./dropdownPicker";
-import InputDisplayArea from "./inputDisplayArea";
-import OutputDisplayArea from "./outputDisplayArea";
-import HorizontalRule from "./horizontalRule";
-import SearchPlasterComponent from "./searchPlasters";
+import PlasterTypeSwitch from "../components/plasterTypeSwitches";
+import PlasterDropdown from "../components/dropdownPicker";
+import InputDisplayArea from "../components/inputDisplayArea";
+import OutputDisplayArea from "../components/outputDisplayArea";
+import HorizontalRule from "../components/horizontalRule";
+import SearchPlasterComponent from "../components/searchPlasters";
 import { StatusBar } from "expo-status-bar";
-import DataSheetButtons from "./dataSheetButtons";
+import DataSheetButtons from "../components/dataSheetButtons";
 import { Modal, Button } from "react-native";
 import PlasterSearchModal from "./plasterSearchModal";
 import FavouritesModal from "./favoritesModal";

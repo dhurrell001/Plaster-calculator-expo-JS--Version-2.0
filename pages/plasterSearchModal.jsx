@@ -9,42 +9,70 @@ import {
   StyleSheet,
 } from "react-native";
 import { debounce } from "lodash";
-import { getPlasters } from "./database";
-import { AppContext } from "./appMainContext";
-import DisplayFavouriteEntry from "./displayFavouriteEntry"; // Component to display each favourite entry
-const FavouritesModal = ({ visible, onClose }) => {
+import { getPlasters } from "../components/database";
+import { AppContext } from "../components/appMainContext";
+
+const PlasterSearchModal = ({ visible, onClose }) => {
   const { setSelectedPlaster } = useContext(AppContext);
-  const { favouriteList, setFavouriteList } = useContext(AppContext);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredPlasters, setFilteredPlasters] = useState([]);
 
   useEffect(() => {
-    if (!visible) {
-      console.log("Modal closed, resetting search");
+    const fetchAndFilter = debounce(async () => {
+      const all = await getPlasters();
+      const filtered = all.filter((p) =>
+        p.plasterName.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredPlasters(filtered);
+    }, 300); // Debounce 300ms
+
+    if (searchQuery.trim() !== "") {
+      fetchAndFilter();
+    } else {
+      setFilteredPlasters([]);
     }
-  }, [visible]);
+
+    return () => fetchAndFilter.cancel(); // cleanup debounce
+  }, [searchQuery]);
+
   const handleSelect = (plaster) => {
     setSelectedPlaster(plaster);
-    onClose(); // Close modal after selection
+    setSearchQuery(""); // Clear search input
+    onClose(); // Close modal
   };
+  // Reset when modal is closed
+  useEffect(() => {
+    if (!visible) {
+      setSearchQuery("");
+      setFilteredPlasters([]);
+    }
+  }, [visible]);
+
   return (
     <Modal visible={visible} animationType="slide">
       <View style={styles.container}>
         <View style={styles.searchContainer}>
-          <Text style={styles.title}>favourites</Text>
-
+          <Text style={styles.title}>Search for a Plaster</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Type plaster name..."
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+          />
           <FlatList
-            data={favouriteList}
-            keyExtractor={(item, index) => index.toString()} // Use index as key for dummy data
+            data={filteredPlasters}
+            keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
               <TouchableOpacity
                 style={styles.resultItem}
                 onPress={() => handleSelect(item)}
               >
-                <DisplayFavouriteEntry plaster={item} />
+                <Text>{item.plasterName}</Text>
               </TouchableOpacity>
             )}
           />
           <TouchableOpacity onPress={onClose} style={styles.cancelButton}>
-            <Text>Close</Text>
+            <Text>Cancel</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -60,7 +88,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
 
     marginTop: 30,
-    padding: 10,
+    padding: 40,
     width: "100%",
   },
   searchContainer: {
@@ -70,9 +98,9 @@ const styles = StyleSheet.create({
     marginVertical: 20, // Add vertical spacing to the container
     backgroundColor: "white",
     borderRadius: 10,
-    padding: 15,
+    paddingTop: 15,
 
-    width: "100%",
+    width: "90%",
     // Border styles
     // borderWidth: 0.5, // Border width
     borderColor: "#000", // Border color (black in this case)
@@ -108,4 +136,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FavouritesModal;
+export default PlasterSearchModal;
