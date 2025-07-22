@@ -1,16 +1,16 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import AppMain from "./components/appMain";
-import AboutPage from "./components/aboutPage";
+import AppMain from "./pages/appMain";
+import AboutPage from "./pages/aboutPage";
 import FavouritesPage from "./components/favouritesPage";
-import InstructionPage from "./components/instructionPage";
+import InstructionPage from "./pages/instructionPage";
 import { Ionicons } from "@expo/vector-icons";
 import { AppProvider } from "./components/appMainContext";
-import PlasterSearchModal from "./components/plasterSearchModal";
+import PlasterSearchModal from "./pages/plasterSearchModal";
 import { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
-import FavouritesModal from "./components/favoritesModal";
+import FavouritesModal from "./pages/favoritesModal";
 
 //Set up the bottom tab navigator
 const Tab = createBottomTabNavigator();
