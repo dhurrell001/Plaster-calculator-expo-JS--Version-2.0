@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     // height: 200,
     width: "100%",
-    paddingRight: 20,
-    paddingLeft: 20,
+    paddingRight: 10,
+    paddingLeft: 10,
   },
   label: {
     fontSize: 16,
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   outerContainer: {
     flexDirection: "column",
     backgroundColor: "white",
-    width: "90%",
+    width: "92%",
     marginTop: 20,
 
     borderRadius: 10,

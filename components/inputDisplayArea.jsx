@@ -74,13 +74,13 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "column", // Stack child elements (input fields) vertically
     alignItems: "center", // Center all child elements horizontally
-    // justifyContent: "space-around",
+    justifyContent: "space-around",
     marginVertical: 20, // Add vertical spacing to the container
     backgroundColor: "white",
     borderRadius: 10,
     paddingTop: 15,
 
-    width: "90%",
+    width: "92%",
     // Border styles
     // borderWidth: 0.5, // Border width
     borderColor: "#000", // Border color (black in this case)
